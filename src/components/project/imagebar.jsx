@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure Bootstrap CSS is imported
-import img1 from '../images/welcomepage.webp';
-import img2 from '../images/img3.webp';
-import img3 from '../images/img4.jpg';
+import img1 from '../images/img11.webp';
+import img2 from '../images/img2.webp';
+import img3 from '../images/img3.jpg'
 
 function UncontrolledExample() {
   return (

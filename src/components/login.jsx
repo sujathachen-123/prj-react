@@ -38,7 +38,7 @@ const App = () => {
         <img src={img1} alt="Description" className="side-image" />
       </div>
       <div className="form-container">
-        <h2>{isLogin ? 'Log In' : 'Sign In'}</h2>
+        <h2>{isLogin ? 'Log In' : 'Sign up'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Email:</label>
@@ -76,7 +76,7 @@ const App = () => {
           )}
 
           <button type="submit" className="btn">
-            {isLogin ? 'Log In' : 'Sign In'}
+            {isLogin ? 'Log In' : 'Sign up'}
           </button>
         </form>
 
@@ -87,7 +87,7 @@ const App = () => {
             className="toggle-btn"
             onClick={() => setIsLogin(!isLogin)}
           >
-            {isLogin ? 'Sign In' : 'Log In'}
+            {isLogin ? 'Sign up' : 'Log In'}
           </button>
         </p>
 
