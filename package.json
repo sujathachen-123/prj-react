@@ -9,9 +9,11 @@
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
+    "react-player": "^2.16.0",
     "react-scripts": "^5.0.1",
     "swiper": "^11.2.0",
     "tailwindcss": "^3.4.17",
+    "video-react": "^0.16.0",
     "web-vitals": "^4.2.4"
   },
   "scripts": {
