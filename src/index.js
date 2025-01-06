@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Project from './components/web.js'
+ import Project from './components/web.js'
+//import Picsbar from "./components/project/picsbar.jsx"
 // import Login from './components/login.jsx
 // import Cards from './components/project/cards.jsx' 
 
@@ -11,6 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Project/>
+    {/* <Picsbar/> */}
     {/* <Cards/> */}
     {/* <Login/> */}
     {/* <App /> */}
