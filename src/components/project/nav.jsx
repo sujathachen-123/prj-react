@@ -31,11 +31,11 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Login and Sign-In Buttons */}
-      {/* <div className="auth-buttons">
+      {/* Login and Sign-In Buttons  */}
+      <div className="auth-buttons">
         <button className="login-button">Login</button>
-        <button className="signin-button">Sign In</button>
-      </div> */}
+        <button className="signup-button">Sign up</button>
+      </div>
     </div>
   );
 };
