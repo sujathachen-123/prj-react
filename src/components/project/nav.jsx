@@ -33,17 +33,17 @@ const Navbar = () => {
       </div>
 
       {/* User Icon */}
-      <div className="user-icon">
+      <div className="user-icon" >
         {/* <img
           src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
           alt="User"
           className="user-icon-image"
         /> */}
-        <img
+        <a href="#login"><img
   src={logo}
   alt="User"
   className="user-icon-image"
-/>
+/></a>
 
       </div>
     </div>
