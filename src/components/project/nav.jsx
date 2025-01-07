@@ -1,5 +1,6 @@
 import React from "react";
 import "./nav.css";
+import  App from './login'
 
 const Navbar = () => {
   return (
@@ -33,7 +34,7 @@ const Navbar = () => {
 
       {/* Login and Sign-In Buttons  */}
       <div className="auth-buttons">
-        <button className="login-button">Login</button>
+        <button className="login-button" onClick={<App/>}>Login</button>
         <button className="signup-button">Sign up</button>
       </div>
     </div>
