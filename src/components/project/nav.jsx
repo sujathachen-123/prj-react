@@ -1,6 +1,6 @@
 import React from "react";
-import "./nav.css";
-import  App from './login'
+import "../project/nav.css";
+import logo from '../images/login.jpg'
 
 const Navbar = () => {
   return (
@@ -32,10 +32,19 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Login and Sign-In Buttons  */}
-      <div className="auth-buttons">
-        <button className="login-button" onClick={<App/>}>Login</button>
-        <button className="signup-button">Sign up</button>
+      {/* User Icon */}
+      <div className="user-icon">
+        {/* <img
+          src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
+          alt="User"
+          className="user-icon-image"
+        /> */}
+        <img
+  src={logo}
+  alt="User"
+  className="user-icon-image"
+/>
+
       </div>
     </div>
   );
