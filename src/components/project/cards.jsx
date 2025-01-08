@@ -14,6 +14,7 @@ import '../project/cards.css';
 
 function BasicExample() {
   const navigate = useNavigate();
+
   const { isAuthenticated } = useAuth(); 
   const courses = [
     {

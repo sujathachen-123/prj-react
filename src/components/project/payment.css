@@ -1,81 +1,101 @@
+/* PaymentPage.css */
+
+/* General Container */
 .payment-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Course Price and Instructions */
+.course-price {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.payment-instruction {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Payment Options */
+.payment-options {
+  margin-bottom: 20px;
+}
+
+.radio-option {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #444;
+}
+
+/* Payment Details Form */
+.payment-details {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Proceed Button */
+.pay-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pay-button:hover {
+  background-color: #45a049;
+}
+
+/* Success Message */
+.success-message {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .payment-container {
+    padding: 15px;
   }
-  
-  .payment-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
+
+  .title {
+    font-size: 20px;
   }
-  
-  .price-display {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #007bff;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #555;
-  }
-  
-  .form-group input,
-  .payment-select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+
+  .pay-button {
     font-size: 14px;
   }
-  
-  .form-group input:focus,
-  .payment-select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
-  }
-  
-  .submit-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .submit-button:focus {
-    outline: none;
-  }
-  
-  .success-message {
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #28a745;
-    border-radius: 8px;
-    background-color: #d4edda;
-    color: #155724;
-  }
-  
+}
