@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'; // Importing star icons
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useAuth } from "../../Authcontext"; 
 import pythonImg from '../images/pythonlogo.jpg';
 import jsImg from '../images/jslogo.webp';
 import htmlImg from '../images/html.jpg';
@@ -12,7 +13,8 @@ import phpImg from '../images/PHP_logo.png';
 import '../project/cards.css';
 
 function BasicExample() {
-  const navigate = useNavigate(); // Define the navigate function using useNavigate
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth(); 
   const courses = [
     {
       title: "Python Beginner",
@@ -84,18 +86,26 @@ function BasicExample() {
 
   // Function to display star ratings
   const renderStars = (rating) => {
-   
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.floor(rating)) {
-        stars.push(<FaStar key={i} style={{ color: '#ffc107', marginRight: '2px' }} />);
+        stars.push(<FaStar key={i} style={{ color: "#ffc107", marginRight: "2px" }} />);
       } else if (i - rating < 1) {
-        stars.push(<FaStarHalfAlt key={i} style={{ color: '#ffc107', marginRight: '2px' }} />);
+        stars.push(<FaStarHalfAlt key={i} style={{ color: "#ffc107", marginRight: "2px" }} />);
       } else {
-        stars.push(<FaRegStar key={i} style={{ color: '#ffc107', marginRight: '2px' }} />);
+        stars.push(<FaRegStar key={i} style={{ color: "#ffc107", marginRight: "2px" }} />);
       }
     }
     return stars;
+  };
+
+  // Handle button click
+  const handleButtonClick = () => {
+    if (isAuthenticated) {
+      navigate("/Form"); // Navigate to form if authenticated
+    } else {
+      alert("Please log in to access this course.");
+    }
   };
 
   return (
@@ -108,11 +118,13 @@ function BasicExample() {
               <Card.Title>{course.title}</Card.Title>
               <Card.Text>{course.text}</Card.Text>
               <div className="price-rating">
-                <span className="price">Rs{course.price}</span>
+                <span className="price">Rs {course.price}</span>
                 <span className="stars">{renderStars(course.rating.rate)}</span>
                 <span className="reviews">({course.rating.count} reviews)</span>
               </div>
-              <Button variant="primary" onClick={() => navigate("/Form")} >{course.buttonText}</Button>
+              <Button variant="primary" onClick={handleButtonClick}>
+                {course.buttonText}
+              </Button>
             </Card.Body>
           </Card>
         ))}

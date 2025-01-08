@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Register from "./project/login.jsx";
+import Register from "./project/Register.jsx";
+// import { AuthProvider } from "./project/Auth.js";
+import { AuthProvider } from '../Authcontext.jsx';
 import Navbar from "../components/project/nav.jsx";
 import Imagebar from "../components/project/imagebar.jsx";
 import Courses from "../components/project/cards.jsx";
@@ -10,7 +12,8 @@ import Footer from "../components/project/footer.jsx";
 
 const Wed = () => {
   return (
-    <>
+    
+      <AuthProvider>
       <Router>
         {/* <Register /> */}
         <Navbar />
@@ -26,8 +29,12 @@ const Wed = () => {
         {/* <Form /> */}
 
         <Footer />
+     
+
       </Router>
-    </>
+      </AuthProvider>
+      
+    
   );
 };
 export default Wed;

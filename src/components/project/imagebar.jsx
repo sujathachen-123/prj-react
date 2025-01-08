@@ -14,7 +14,7 @@ const Imagebar = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[800px]">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[800px] ">
       {/* Text Section */}
       <div className="flex flex-col justify-center gap-7 text-center md:text-left pt-10 md:pt-0 pb-10">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">

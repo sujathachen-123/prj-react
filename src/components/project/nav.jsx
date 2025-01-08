@@ -1,10 +1,22 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../Authcontext'; // Use useAuth if AuthContext is not directly exported
 import "../project/nav.css";
-import logo from '../images/login.jpg';
+import logo from "../images/login.jpg";
 
 const Navbar = () => {
-  const navigate = useNavigate(); // Define the navigate function using useNavigate
+  const { currentUser, logout } = useAuth(); // Use useAuth hook
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      alert("You have been logged out.");
+      navigate("/Register");
+    } catch (error) {
+      console.error("Logout Error:", error.message);
+    }
+  };
 
   return (
     <div className="navbar">
@@ -37,14 +49,21 @@ const Navbar = () => {
 
       {/* User Icon */}
       <div className="user-icon">
-        
+        {currentUser ? (
+          <>
+            <span>Welcome, {currentUser.displayName || "User"}</span>
+            <button className="btn logout" onClick={handleLogout}>
+              Logout
+            </button>
+          </>
+        ) : (
           <img
             src={logo}
             alt="User"
             className="user-icon-image"
-            onClick={() => navigate("/Register")} // Use the navigate function here
+            onClick={() => navigate("/Register")}
           />
-        
+        )}
       </div>
     </div>
   );
