@@ -45,11 +45,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password, confirmPassword, username } = formData;
-
+  
     if (isLogin) {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        alert(`Welcome back, ${userCredential.user.displayName || "User"}!`);
+        const user = userCredential.user;
+        alert(`Welcome, ${user.displayName || "User"}! You are successfully logged in.`);
         navigate("/");
       } catch (error) {
         console.error("Login Error:", error.message);
@@ -62,9 +63,13 @@ const Register = () => {
       }
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(userCredential.user, { displayName: username });
-        await sendEmailVerification(userCredential.user);
-        alert("Registration successful! Please verify your email.");
+        const user = userCredential.user;
+  
+        // Update profile with username
+        await updateProfile(user, { displayName: username });
+        await sendEmailVerification(user);
+  
+        alert(`Welcome, ${username}! Registration successful.`);
         navigate("/");
       } catch (error) {
         console.error("Registration Error:", error.message);
@@ -72,23 +77,12 @@ const Register = () => {
       }
     }
   };
-
-  // const handleGuestLogin = async () => {
-  //   try {
-  //     const userCredential = await signInAnonymously(auth);
-  //     alert("Welcome, Guest! You are logged in anonymously.");
-  //     navigate("/");
-  //   } catch (error) {
-  //     console.error("Guest Login Error:", error.message);
-  //     alert("Guest login failed. Please try again later.");
-  //   }
-  // };
+  
   const handleGuestLogin = () => {
-    console.log("Logging in as Guest");
-    alert("Welcome! You have successfully logged in as a guest.");
-    navigate("/"); // Redirect to ImageBar for guest login
+    alert("Welcome, Guest! You are successfully logged in.");
+    navigate("/"); // Redirect to your homepage or dashboard
   };
-
+  
 
   return (
     <div className="register-wrapper">
