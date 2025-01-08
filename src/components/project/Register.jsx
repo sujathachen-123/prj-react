@@ -9,7 +9,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import "../project/Register.css"; // Ensure proper styling is applied
+import "../project/Register.css"; // Link to your CSS file
+import img1 from "../images/img-1.webp"; // Import your image
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -28,7 +29,7 @@ const auth = getAuth();
 
 const Register = () => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign Up
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -49,7 +50,7 @@ const Register = () => {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         alert(`Welcome back, ${userCredential.user.displayName || "User"}!`);
-        navigate("/dashboard"); // Redirect after successful login
+        navigate("/");
       } catch (error) {
         console.error("Login Error:", error.message);
         alert("Login failed. Please check your credentials.");
@@ -64,7 +65,7 @@ const Register = () => {
         await updateProfile(userCredential.user, { displayName: username });
         await sendEmailVerification(userCredential.user);
         alert("Registration successful! Please verify your email.");
-        navigate("/dashboard"); // Redirect after successful registration
+        navigate("/");
       } catch (error) {
         console.error("Registration Error:", error.message);
         alert("Registration failed. Please try again.");
@@ -72,82 +73,89 @@ const Register = () => {
     }
   };
 
-  const handleGuestLogin = async () => {
-    try {
-      const userCredential = await signInAnonymously(auth);
-      alert("Welcome, Guest! You are logged in anonymously.");
-      navigate("/dashboard"); // Redirect to the main application for guest users
-    } catch (error) {
-      console.error("Guest Login Error:", error.message);
-      alert("Guest login failed. Please try again later.");
-    }
+  // const handleGuestLogin = async () => {
+  //   try {
+  //     const userCredential = await signInAnonymously(auth);
+  //     alert("Welcome, Guest! You are logged in anonymously.");
+  //     navigate("/");
+  //   } catch (error) {
+  //     console.error("Guest Login Error:", error.message);
+  //     alert("Guest login failed. Please try again later.");
+  //   }
+  // };
+  const handleGuestLogin = () => {
+    console.log("Logging in as Guest");
+    alert("Welcome! You have successfully logged in as a guest.");
+    navigate("/"); // Redirect to ImageBar for guest login
   };
 
+
   return (
-    <div className="register-container">
-      <h2>{isLogin ? "Log In" : "Sign Up"}</h2>
-      <form onSubmit={handleSubmit}>
-        {!isLogin && (
+    <div className="register-wrapper">
+      <div className="register-image">
+        <img src={img1} alt="Registration Illustration" className="side-image" />
+      </div>
+      <div className="register-form">
+        <h2>{isLogin ? "Log In" : "Sign Up"}</h2>
+        <form onSubmit={handleSubmit}>
+          {!isLogin && (
+            <div className="form-group">
+              <label>Username:</label>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          )}
           <div className="form-group">
-            <label>Username:</label>
+            <label>Email:</label>
             <input
-              type="text"
-              name="username"
-              value={formData.username}
+              type="email"
+              name="email"
+              value={formData.email}
               onChange={handleInputChange}
               required
             />
           </div>
-        )}
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        {!isLogin && (
           <div className="form-group">
-            <label>Confirm Password:</label>
+            <label>Password:</label>
             <input
               type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
+              name="password"
+              value={formData.password}
               onChange={handleInputChange}
               required
             />
           </div>
-        )}
-        <button type="submit">{isLogin ? "Log In" : "Sign Up"}</button>
-      </form>
-      <p>
-        {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-        <button
-          className="toggle-btn"
-          onClick={() => setIsLogin((prev) => !prev)}
-        >
-          {isLogin ? "Sign Up" : "Log In"}
+          {!isLogin && (
+            <div className="form-group">
+              <label>Confirm Password:</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          )}
+          <button type="submit" className="btn primary-btn">
+            {isLogin ? "Log In" : "Sign Up"}
+          </button>
+        </form>
+        <p>
+          {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
+          <button className="toggle-btn" onClick={() => setIsLogin((prev) => !prev)}>
+            {isLogin ? "Sign Up" : "Log In"}
+          </button>
+        </p>
+        <button className="btn guest-btn" onClick={handleGuestLogin}>
+          Guest Login
         </button>
-      </p>
-      <button
-        className="btn guest-login"
-        onClick={handleGuestLogin}
-      >
-        Guest Login
-      </button>
+      </div>
     </div>
   );
 };
