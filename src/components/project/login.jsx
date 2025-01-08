@@ -1,7 +1,14 @@
-// Import Firebase functions
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 import "./login.css"; // CSS file for styling
 import img1 from "../images/img-1.webp"; // Import the image
 
@@ -20,13 +27,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const App = () => {
+const Register = () => {
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Sign In
   const [formData, setFormData] = useState({
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,13 +44,15 @@ const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword } = formData;
 
     if (isLogin) {
       try {
         // Log in existing user
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("Logged in:", userCredential.user);
+        const user = userCredential.user;
+        alert(`Welcome ${user.displayName || "User"}! You have successfully logged in.`);
+        navigate("/"); // Redirect to ImageBar
       } catch (error) {
         console.error("Login Error:", error.message);
         alert(error.message);
@@ -54,10 +65,15 @@ const App = () => {
       try {
         // Sign up new user
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        console.log("Signed up:", userCredential.user);
-        alert("Account created! Please check your email for verification.");
-        // Send email verification
-        await sendEmailVerification(userCredential.user);
+        const user = userCredential.user;
+
+        // Update profile with username
+        await updateProfile(user, { displayName: username });
+
+        console.log("Signed up:", user);
+        alert(`Welcome ${username}! Account created. Please check your email for verification.`);
+        await sendEmailVerification(user);
+        navigate("/"); // Redirect to ImageBar
       } catch (error) {
         console.error("Sign Up Error:", error.message);
         alert(error.message);
@@ -67,6 +83,8 @@ const App = () => {
 
   const handleGuestLogin = () => {
     console.log("Logging in as Guest");
+    alert("Welcome! You have successfully logged in as a guest.");
+    navigate("/"); // Redirect to ImageBar for guest login
   };
 
   return (
@@ -77,6 +95,19 @@ const App = () => {
       <div className="form-container">
         <h2>{isLogin ? "Log In" : "Sign up"}</h2>
         <form onSubmit={handleSubmit}>
+          {!isLogin && (
+            <div className="form-group">
+              <label>Username:</label>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+          )}
+
           <div className="form-group">
             <label>Email:</label>
             <input
@@ -142,4 +173,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Register;

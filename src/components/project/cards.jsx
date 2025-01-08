@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'; // Importing star icons
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import pythonImg from '../images/pythonlogo.jpg';
 import jsImg from '../images/jslogo.webp';
 import htmlImg from '../images/html.jpg';
@@ -11,6 +12,7 @@ import phpImg from '../images/PHP_logo.png';
 import '../project/cards.css';
 
 function BasicExample() {
+  const navigate = useNavigate(); // Define the navigate function using useNavigate
   const courses = [
     {
       title: "Python Beginner",
@@ -82,6 +84,7 @@ function BasicExample() {
 
   // Function to display star ratings
   const renderStars = (rating) => {
+   
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.floor(rating)) {
@@ -109,7 +112,7 @@ function BasicExample() {
                 <span className="stars">{renderStars(course.rating.rate)}</span>
                 <span className="reviews">({course.rating.count} reviews)</span>
               </div>
-              <Button variant="primary">{course.buttonText}</Button>
+              <Button variant="primary" onClick={() => navigate("/Form")} >{course.buttonText}</Button>
             </Card.Body>
           </Card>
         ))}

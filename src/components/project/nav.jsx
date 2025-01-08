@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "../project/nav.css";
-import logo from '../images/login.jpg'
+import logo from '../images/login.jpg';
 
 const Navbar = () => {
+  const navigate = useNavigate(); // Define the navigate function using useNavigate
+
   return (
     <div className="navbar">
       {/* Udemy Logo */}
@@ -33,18 +36,15 @@ const Navbar = () => {
       </div>
 
       {/* User Icon */}
-      <div className="user-icon" >
-        {/* <img
-          src="https://cdn-icons-png.flaticon.com/512/1177/1177568.png"
-          alt="User"
-          className="user-icon-image"
-        /> */}
-        <a href="#login"><img
-  src={logo}
-  alt="User"
-  className="user-icon-image"
-/></a>
-
+      <div className="user-icon">
+        
+          <img
+            src={logo}
+            alt="User"
+            className="user-icon-image"
+            onClick={() => navigate("/Register")} // Use the navigate function here
+          />
+        
       </div>
     </div>
   );
