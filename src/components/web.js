@@ -21,6 +21,7 @@ const Wed = () => {
      <Route path="/" element={<Imagebar />} />
      <Route path="/Register" element={<Register />} />
       {/* <Route path="/Form" element={<Form />} /> */}
+      <Route path="/Payment" element={<Payment />} />
       
 
   
