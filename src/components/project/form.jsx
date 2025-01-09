@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./form.css";
 
 const CourseForm = () => {
@@ -10,6 +11,8 @@ const CourseForm = () => {
     course: "",
     price: "",
   });
+
+  const navigate = useNavigate();
 
   const courses = [
     { name: "Python", price: 450 },
@@ -32,7 +35,7 @@ const CourseForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data:", formData);
-    alert("Proceeding to payment...");
+    navigate("/Payment", { state: { formData } });
   };
 
   return (
@@ -107,7 +110,7 @@ const CourseForm = () => {
         </div>
 
         {/* Proceed to Pay Button */}
-        <button type="submit" className="proceed-button">
+        <button type="submit" className="proceed-button" >
           Proceed to Pay
         </button>
       </form>

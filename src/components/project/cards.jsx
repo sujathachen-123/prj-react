@@ -102,6 +102,7 @@ function BasicExample() {
 
   // Handle button click
   const handleButtonClick = () => {
+    console.log(isAuthenticated)
     if (isAuthenticated) {
       navigate("/Form"); // Navigate to form if authenticated
     } else {

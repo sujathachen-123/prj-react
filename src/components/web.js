@@ -20,7 +20,7 @@ const Wed = () => {
      <Routes>
      <Route path="/" element={<Imagebar />} />
      <Route path="/Register" element={<Register />} />
-      {/* <Route path="/Form" element={<Form />} /> */}
+      <Route path="/Form" element={<Form />} />
       <Route path="/Payment" element={<Payment />} />
       
 
@@ -29,8 +29,8 @@ const Wed = () => {
      </Routes>
         {/* <Imagebar /> */}
         <Courses/>
-        <Payment/>
-        <Form />
+        {/* <Payment/> */}
+        {/* <Form /> */}
 
         <Footer />
      
