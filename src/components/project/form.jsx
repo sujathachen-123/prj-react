@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./form.css";
 
 const CourseForm = () => {
   const [formData, setFormData] = useState({
@@ -39,61 +38,73 @@ const CourseForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Course Enrollment Form</h2>
+    <div className="max-w-sm mx-auto mt-12 p-6 border border-gray-300 rounded-lg bg-gray-50 shadow-md">
+      <h2 className="text-center text-2xl font-semibold text-gray-700 mb-6">
+        Course Enrollment Form
+      </h2>
       <form onSubmit={handleSubmit}>
         {/* First Name */}
-        <div className="form-group">
-          <label>First Name:</label>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">First Name:</label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
             required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
         {/* Second Name */}
-        <div className="form-group">
-          <label>Second Name:</label>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">Second Name:</label>
           <input
             type="text"
             name="secondName"
             value={formData.secondName}
             onChange={handleInputChange}
             required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
         {/* Email */}
-        <div className="form-group">
-          <label>Email:</label>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">Email:</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleInputChange}
             required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
         {/* Phone Number */}
-        <div className="form-group">
-          <label>Phone Number:</label>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">Phone Number:</label>
           <input
             type="tel"
             name="phone"
             value={formData.phone}
             onChange={handleInputChange}
             required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
 
         {/* Course Dropdown */}
-        <div className="form-group">
-          <label>Course:</label>
-          <select name="course" value={formData.course} onChange={handleCourseChange} required>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">Course:</label>
+          <select
+            name="course"
+            value={formData.course}
+            onChange={handleCourseChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
             <option value="">-- Select a Course --</option>
             {courses.map((course, index) => (
               <option key={index} value={course.name}>
@@ -104,13 +115,21 @@ const CourseForm = () => {
         </div>
 
         {/* Price */}
-        <div className="form-group">
-          <label>Price:</label>
-          <input type="text" value={`Rs ${formData.price}`} readOnly />
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-2">Price:</label>
+          <input
+            type="text"
+            value={`Rs ${formData.price}`}
+            readOnly
+            className="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 cursor-not-allowed"
+          />
         </div>
 
         {/* Proceed to Pay Button */}
-        <button type="submit" className="proceed-button" >
+        <button
+          type="submit"
+          className="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
           Proceed to Pay
         </button>
       </form>

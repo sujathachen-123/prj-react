@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../Authcontext'; // Use useAuth if AuthContext is not directly exported
-import "../project/nav.css";
 import logo from "../images/login.jpg";
 
 const Navbar = () => {
@@ -19,40 +18,36 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className="flex items-center justify-between bg-white px-6 py-4 shadow-md">
       {/* Udemy Logo */}
-      <div className="logo">
+      <div className="cursor-pointer">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg"
           alt="Udemy"
-          className="logo-image"
+          className="h-10 w-auto"
         />
       </div>
 
       {/* Search Bar */}
-      <div className="search-bar">
+      <div className="flex-1 mx-8">
         <input
           type="text"
           placeholder="Search for anything"
-          className="search-input"
-        />
-      </div>
-
-      {/* Add to Cart */}
-      <div className="cart">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png"
-          alt="Add to Cart"
-          className="cart-icon"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       {/* User Icon */}
-      <div className="user-icon">
+      <div className="flex items-center space-x-4">
         {currentUser ? (
           <>
-            <span>Welcome, {currentUser.displayName || "User"}</span>
-            <button className="btn logout" onClick={handleLogout}>
+            <span className="text-gray-700 font-medium">
+              Welcome, {currentUser.displayName || "User"}
+            </span>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none"
+              onClick={handleLogout}
+            >
               Logout
             </button>
           </>
@@ -60,7 +55,7 @@ const Navbar = () => {
           <img
             src={logo}
             alt="User"
-            className="user-icon-image"
+            className="h-9 w-9 rounded-full cursor-pointer object-cover hover:scale-105 transition-transform"
             onClick={() => navigate("/Register")}
           />
         )}

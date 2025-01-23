@@ -14,28 +14,20 @@ const Imagebar = () => {
   ];
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[800px] ">
+    <div className="w-full h-screen bg-[#d1d9e6] flex flex-col md:flex-row items-center justify-center">
       {/* Text Section */}
-      <div className="flex flex-col justify-center gap-7 text-center md:text-left pt-10 md:pt-0 pb-10">
+      <div className="flex flex-col justify-center gap-7 text-center md:text-left px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
           Learn from anywhere
         </h1>
         <p className="font-medium text-base md:text-lg lg:text-xl text-gray-600">
           On the couch, from the backyard, or on your commute. Our app lets you decide.
         </p>
-        {/* <div className="flex flex-col md:flex-row gap-4 items-center justify-center md:justify-start mt-4">
-          <button className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 hover:scale-105 transition duration-200">
-            Get Started
-          </button>
-          <button className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg shadow-md hover:bg-gray-300 hover:scale-105 transition duration-200">
-            Learn More
-          </button>
-        </div> */}
       </div>
 
       {/* Image Carousel Section */}
-      <div className="flex flex-col justify-center">
-        <Carousel className="rounded-lg overflow-hidden shadow-lg">
+      <div className="flex justify-center items-center px-4 sm:px-6 lg:px-8">
+        <Carousel className="rounded-lg overflow-hidden shadow-lg w-full max-w-[600px]">
           {slides.map((slide, index) => (
             <Carousel.Item key={index}>
               <img

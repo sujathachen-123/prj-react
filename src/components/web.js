@@ -9,6 +9,7 @@ import Courses from "../components/project/cards.jsx";
 import Form from "../components/project/form.jsx";
 import Payment from "../components/project/payment.jsx"
 import Footer from "../components/project/footer.jsx";
+import Video from "../components/project/videos.jsx"
 
 const Wed = () => {
   return (
@@ -27,11 +28,10 @@ const Wed = () => {
   
 
      </Routes>
-        {/* <Imagebar /> */}
+        
         <Courses/>
-        {/* <Payment/> */}
-        {/* <Form /> */}
-
+        <Video/>
+       
         <Footer />
      
 

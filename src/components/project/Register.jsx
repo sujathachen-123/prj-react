@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Authcontext"; // Import useAuth
+import { useAuth } from "../../Authcontext";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInAnonymously,
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import "../project/Register.css"; // Link to your CSS file
-import img1 from "../images/img-1.webp"; // Import your image
+import img1 from "../images/img-1.webp";
 
 // Firebase Configuration
 const firebaseConfig = {
@@ -28,136 +26,9 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
-// const Register = () => {
-//   const navigate = useNavigate();
-//   const [isLogin, setIsLogin] = useState(true);
-//   const [formData, setFormData] = useState({
-//     email: "",
-//     password: "",
-//     confirmPassword: "",
-//     username: "",
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({ ...formData, [name]: value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const { email, password, confirmPassword, username } = formData;
-  
-//     if (isLogin) {
-//       try {
-//         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-//         const user = userCredential.user;
-//         alert(`Welcome, ${user.displayName || "User"}! You are successfully logged in.`);
-//         navigate("/");
-//       } catch (error) {
-//         console.error("Login Error:", error.message);
-//         alert("Login failed. Please check your credentials.");
-//       }
-//     } else {
-//       if (password !== confirmPassword) {
-//         alert("Passwords do not match!");
-//         return;
-//       }
-//       try {
-//         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-//         const user = userCredential.user;
-  
-//         // Update profile with username
-//         await updateProfile(user, { displayName: username });
-//         await sendEmailVerification(user);
-  
-//         alert(`Welcome, ${username}! Registration successful.`);
-//         navigate("/");
-//       } catch (error) {
-//         console.error("Registration Error:", error.message);
-//         alert("Registration failed. Please try again.");
-//       }
-//     }
-//   };
-  
-//   const handleGuestLogin = () => {
-//     alert("Welcome, Guest! You are successfully logged in.");
-//     navigate("/"); // Redirect to your homepage or dashboard
-//   };
-  
-
-//   return (
-//     <div className="register-wrapper">
-//       <div className="register-image">
-//         <img src={img1} alt="Registration Illustration" className="side-image" />
-//       </div>
-//       <div className="register-form">
-//         <h2>{isLogin ? "Log In" : "Sign Up"}</h2>
-//         <form onSubmit={handleSubmit}>
-//           {!isLogin && (
-//             <div className="form-group">
-//               <label>Username:</label>
-//               <input
-//                 type="text"
-//                 name="username"
-//                 value={formData.username}
-//                 onChange={handleInputChange}
-//                 required
-//               />
-//             </div>
-//           )}
-//           <div className="form-group">
-//             <label>Email:</label>
-//             <input
-//               type="email"
-//               name="email"
-//               value={formData.email}
-//               onChange={handleInputChange}
-//               required
-//             />
-//           </div>
-//           <div className="form-group">
-//             <label>Password:</label>
-//             <input
-//               type="password"
-//               name="password"
-//               value={formData.password}
-//               onChange={handleInputChange}
-//               required
-//             />
-//           </div>
-//           {!isLogin && (
-//             <div className="form-group">
-//               <label>Confirm Password:</label>
-//               <input
-//                 type="password"
-//                 name="confirmPassword"
-//                 value={formData.confirmPassword}
-//                 onChange={handleInputChange}
-//                 required
-//               />
-//             </div>
-//           )}
-//           <button type="submit" className="btn primary-btn">
-//             {isLogin ? "Log In" : "Sign Up"}
-//           </button>
-//         </form>
-//         <p>
-//           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-//           <button className="toggle-btn" onClick={() => setIsLogin((prev) => !prev)}>
-//             {isLogin ? "Sign Up" : "Log In"}
-//           </button>
-//         </p>
-//         <button className="btn guest-btn" onClick={handleGuestLogin}>
-//           Guest Login
-//         </button>
-//       </div>
-//     </div>
-//   );
-// };
-
 const Register = () => {
   const navigate = useNavigate();
-  const { logIn } = useAuth(); // Use the logIn method from the AuthContext
+  const { logIn } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: "",
@@ -180,7 +51,7 @@ const Register = () => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         alert(`Welcome, ${user.displayName || "User"}! You are successfully logged in.`);
-        logIn(); // Update the authentication state
+        logIn();
         navigate("/");
       } catch (error) {
         console.error("Login Error:", error.message);
@@ -195,12 +66,11 @@ const Register = () => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Update profile with username
         await updateProfile(user, { displayName: username });
         await sendEmailVerification(user);
 
         alert(`Welcome, ${username}! Registration successful.`);
-        logIn(); // Update the authentication state
+        logIn();
         navigate("/");
       } catch (error) {
         console.error("Registration Error:", error.message);
@@ -210,74 +80,93 @@ const Register = () => {
   };
 
   const handleGuestLogin = () => {
-    logIn(); // Update the authentication state
+    logIn();
     alert("Welcome, Guest! You are successfully logged in.");
-    navigate("/"); // Redirect to your homepage or dashboard
+    navigate("/");
   };
 
   return (
-    <div className="register-wrapper">
-      <div className="register-image">
-        <img src={img1} alt="Registration Illustration" className="side-image" />
+    <div className="flex flex-wrap justify-center items-center min-h-screen bg-gray-100 p-5">
+      <div className="flex flex-1 justify-center items-center p-5">
+        <img
+          src={img1}
+          alt="Registration Illustration"
+          className="max-w-md rounded-lg shadow-lg"
+        />
       </div>
-      <div className="register-form">
-        <h2>{isLogin ? "Log In" : "Sign Up"}</h2>
-        <form onSubmit={handleSubmit}>
+      <div className="flex flex-1 flex-col bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-center mb-6">
+          {isLogin ? "Log In" : "Sign Up"}
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
-            <div className="form-group">
-              <label>Username:</label>
+            <div>
+              <label className="block font-semibold mb-2">Username:</label>
               <input
                 type="text"
                 name="username"
                 value={formData.username}
                 onChange={handleInputChange}
                 required
+                className="w-full p-2 border rounded-md"
               />
             </div>
           )}
-          <div className="form-group">
-            <label>Email:</label>
+          <div>
+            <label className="block font-semibold mb-2">Email:</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               required
+              className="w-full p-2 border rounded-md"
             />
           </div>
-          <div className="form-group">
-            <label>Password:</label>
+          <div>
+            <label className="block font-semibold mb-2">Password:</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               required
+              className="w-full p-2 border rounded-md"
             />
           </div>
           {!isLogin && (
-            <div className="form-group">
-              <label>Confirm Password:</label>
+            <div>
+              <label className="block font-semibold mb-2">Confirm Password:</label>
               <input
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 required
+                className="w-full p-2 border rounded-md"
               />
             </div>
           )}
-          <button type="submit" className="btn primary-btn">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
+          >
             {isLogin ? "Log In" : "Sign Up"}
           </button>
         </form>
-        <p>
+        <p className="text-center mt-4">
           {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-          <button className="toggle-btn" onClick={() => setIsLogin((prev) => !prev)}>
+          <button
+            className="text-blue-500 hover:underline"
+            onClick={() => setIsLogin((prev) => !prev)}
+          >
             {isLogin ? "Sign Up" : "Log In"}
           </button>
         </p>
-        <button className="btn guest-btn" onClick={handleGuestLogin}>
+        <button
+          onClick={handleGuestLogin}
+          className="w-full bg-green-500 text-white py-2 px-4 rounded-md mt-4 hover:bg-green-600 transition"
+        >
           Guest Login
         </button>
       </div>
