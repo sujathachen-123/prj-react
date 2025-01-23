@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const PaymentPage = () => {
+  const location = useLocation();
+  const { formData } = location.state || {}; // Retrieve course details from location.state
   const [paymentMethod, setPaymentMethod] = useState(""); // Selected payment method
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
-  const [price, setPrice] = useState(500); // Course price
+
+  const coursePrice = formData?.price || 0; // Default to 0 if no price is provided
 
   const handlePayment = () => {
     setIsPaymentSuccessful(true); // Simulate successful payment
@@ -13,7 +17,7 @@ const PaymentPage = () => {
     <div className="max-w-lg mx-auto my-10 p-6 border border-gray-200 rounded-lg shadow-lg bg-white font-sans">
       <h2 className="text-center text-2xl font-semibold text-gray-800 mb-6">Purchase Course</h2>
       <p className="text-lg text-gray-700 mb-4">
-        Course Price: <strong>Rs {price}</strong>
+        Course Price: <strong>Rs {coursePrice}</strong>
       </p>
       <p className="text-base text-gray-600 mb-6">Select your payment method:</p>
 
@@ -138,7 +142,7 @@ const PaymentPage = () => {
       {isPaymentSuccessful && (
         <div className="text-center text-green-600 font-semibold mt-6">
           <h3 className="text-xl mb-2">Payment Successful!</h3>
-          <p>Thank you for your payment of Rs {price}. Your transaction was successful.</p>
+          <p>Thank you for your payment of Rs {coursePrice}. Your transaction was successful.</p>
         </div>
       )}
     </div>

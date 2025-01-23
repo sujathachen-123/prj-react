@@ -8,11 +8,11 @@ const VideoSection = () => {
       { title: "Advanced Python", url: "https://drive.google.com/uc?export=download&id=FILE_ID2" },
     ],
     Java: [
-      { title: "Java intoduction", url:" https://drive.google.com/file/d/1QGC7Zh5Ua-Ud48yJoJ3t4FZzLYtPg-CU/preview" },
-      { title: "Java Developing kit setup", url: "https://drive.google.com/file/d/1a4I9JziAwgQftjlzmhKHCriROD4Z5Rw_/view?usp=sharing" },
-      { title: "First Code in java", url: "https://drive.google.com/file/d/1x0tUN8A-NbgAvA0odblDQRIpMAtzK5wp/preview" },
-      { title: "How Java Works", url: "https://drive.google.com/uc?export=download&id=1VTPATXJjS4Xzq2gH5A6nifh3edRk903b" },
-      { title: "Variables in java", url: "https://drive.google.com/uc?export=download&id=1a4I9JziAwgQftjlzmhKHCriROD4Z5Rw_" },
+      { title: "Java Introduction", url: "https://drive.google.com/file/d/1QGC7Zh5Ua-Ud48yJoJ3t4FZzLYtPg-CU/preview" },
+      { title: "Java Development Kit Setup", url: "https://drive.google.com/file/d/1a4I9JziAwgQftjlzmhKHCriROD4Z5Rw_/preview" },
+      { title: "First Code in Java", url: "https://drive.google.com/file/d/1x0tUN8A-NbgAvA0odblDQRIpMAtzK5wp/preview" },
+      { title: "How Java Works", url: "https://drive.google.com/file/d/1VTPATXJjS4Xzq2gH5A6nifh3edRk903b/preview" },
+      { title: "Variables in Java", url: "https://drive.google.com/file/d/1a4I9JziAwgQftjlzmhKHCriROD4Z5Rw_/preview" },
     ],
     CSS: [
       { title: "CSS Fundamentals", url: "https://drive.google.com/uc?export=download&id=FILE_ID5" },
@@ -33,15 +33,14 @@ const VideoSection = () => {
   };
 
   const [selectedSection, setSelectedSection] = useState(null); // Current section
-  const [selectedVideo, setSelectedVideo] = useState(null); // Current video
 
   const handleSectionSelect = (section) => {
     setSelectedSection(section);
-    setSelectedVideo(null); // Reset video selection
   };
 
   const handleVideoSelect = (video) => {
-    setSelectedVideo(video);
+    // Open video URL in a new tab
+    window.open(video.url, "_blank");
   };
 
   return (
@@ -49,13 +48,11 @@ const VideoSection = () => {
       <h1 className="text-2xl font-bold mb-4">Course Videos</h1>
 
       {/* Section Buttons */}
-      <div className="flex space-x-4 mb-6">
+      <div className="flex flex-wrap gap-4 mb-6">
         {Object.keys(sections).map((section) => (
           <button
             key={section}
-            className={`px-4 py-2 rounded-lg ${
-              selectedSection === section ? "bg-blue-500 text-white" : "bg-gray-200"
-            }`}
+            className={`px-4 py-2 rounded-lg ${selectedSection === section ? "bg-blue-500 text-white" : "bg-gray-200"}`}
             onClick={() => handleSectionSelect(section)}
           >
             {section}
@@ -80,20 +77,6 @@ const VideoSection = () => {
             ))}
           </ul>
         </div>
-      )}
-
-      {/* Video Player (iframe) */}
-      {selectedVideo && (
-         <div>
-         <h3 className="text-lg font-semibold mb-2">Now Playing: {selectedVideo.title}</h3>
-         <iframe
-           src={`https://drive.google.com/file/d/${selectedVideo.url.split('/d/')[1].split('/')[0]}/preview?autoplay=1`}
-           width="600"
-           height="400"
-           allow="autoplay; fullscreen" // This enables fullscreen and autoplay on the iframe
-           className="border rounded-lg"
-         ></iframe>
-       </div>
       )}
     </div>
   );

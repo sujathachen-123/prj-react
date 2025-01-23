@@ -16,7 +16,7 @@ const CourseForm = () => {
   const courses = [
     { name: "Python", price: 450 },
     { name: "Java", price: 499 },
-    { name: "Html", price: 299 },
+    { name: "HTML", price: 299 },
     { name: "PHP", price: 299 },
     { name: "JavaScript", price: 399 },
   ];
@@ -33,8 +33,7 @@ const CourseForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    navigate("/Payment", { state: { formData } });
+    navigate("/Payment", { state: { formData } }); // Pass formData to PaymentPage
   };
 
   return (
