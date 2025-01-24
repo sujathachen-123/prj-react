@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CourseForm = () => {
@@ -20,6 +20,11 @@ const CourseForm = () => {
     { name: "PHP", price: 299 },
     { name: "JavaScript", price: 399 },
   ];
+
+  // Automatically scroll to top when the component is rendered
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+// import { FaArrowLeft } from "react-icons/fa"; // Importing a back arrow icon
 
 const VideoSection = () => {
-  // Sections with related videos
+  const [selectedSection, setSelectedSection] = useState(null); // Track the current selected section
+
   const sections = {
     Python: [
       { title: "Python Basics", url: "https://drive.google.com/uc?export=download&id=FILE_ID1" },
@@ -32,47 +34,65 @@ const VideoSection = () => {
     ],
   };
 
-  const [selectedSection, setSelectedSection] = useState(null); // Current section
-
   const handleSectionSelect = (section) => {
-    setSelectedSection(section);
+    setSelectedSection(section); // Update the current section
   };
 
-  const handleVideoSelect = (video) => {
-    // Open video URL in a new tab
-    window.open(video.url, "_blank");
-  };
+  // const goBack = () => {
+  //   setSelectedSection(null); // Reset the selected section
+  // };
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Course Videos</h1>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      {/* Go Back Button
+      {selectedSection && (
+        <button
+          className="flex items-center text-blue-600 mb-6"
+          onClick={goBack}
+        >
+          <FaArrowLeft className="mr-2" /> Go Back
+        </button>
+      )} */}
+
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Learn with Us</h1>
 
       {/* Section Buttons */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        {Object.keys(sections).map((section) => (
-          <button
-            key={section}
-            className={`px-4 py-2 rounded-lg ${selectedSection === section ? "bg-blue-500 text-white" : "bg-gray-200"}`}
-            onClick={() => handleSectionSelect(section)}
-          >
-            {section}
-          </button>
-        ))}
-      </div>
+      {!selectedSection && (
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {Object.keys(sections).map((section) => (
+            <button
+              key={section}
+              className="px-6 py-2 rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-600"
+              onClick={() => handleSectionSelect(section)}
+            >
+              {section}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Video List */}
       {selectedSection && (
-        <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Videos in {selectedSection}</h2>
-          <ul className="space-y-2">
+        <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+            Videos in {selectedSection}
+          </h2>
+          <ul className="space-y-4">
             {sections[selectedSection].map((video, index) => (
               <li key={index}>
-                <button
-                  className="text-blue-600 hover:underline"
-                  onClick={() => handleVideoSelect(video)}
-                >
-                  {video.title}
-                </button>
+                {/* Embed video in a smaller iframe */}
+                <div className="mb-4">
+                  <iframe
+                    src={video.url}
+                    title={video.title}
+                    width="100%" // Adjusted width
+                    height="100%" // Adjusted height
+                    // frameBorder="0"
+                    allowFullScreen
+                    className="rounded-lg border"
+                  ></iframe>
+                </div>
+                <p className="text-blue-600">{video.title}</p>
               </li>
             ))}
           </ul>
