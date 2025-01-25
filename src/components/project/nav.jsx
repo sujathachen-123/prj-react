@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../../Authcontext'; // Use useAuth if AuthContext is not directly exported
+import { useAuth } from "../../Authcontext";
 import logo from "../images/login.jpg";
 
-const Navbar = () => {
-  const { currentUser, logout } = useAuth(); // Use useAuth hook
+const Navbar = ({ setSearchQuery }) => {
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -17,9 +17,12 @@ const Navbar = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
+
   return (
     <div className="flex items-center justify-between bg-white px-6 py-4 shadow-md">
-      {/* Udemy Logo */}
       <div className="cursor-pointer">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg"
@@ -28,16 +31,15 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Search Bar */}
       <div className="flex-1 mx-8">
         <input
           type="text"
           placeholder="Search for anything"
+          onChange={handleSearchChange}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
-      {/* User Icon */}
       <div className="flex items-center space-x-4">
         {currentUser ? (
           <>
