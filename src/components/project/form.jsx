@@ -19,6 +19,13 @@ const CourseForm = () => {
     { name: "HTML", price: 299 },
     { name: "PHP", price: 299 },
     { name: "JavaScript", price: 399 },
+    { name: "Angular", price: 499 },
+    { name: "React", price: 499 },
+    { name: "Sql", price: 399 },
+    
+    
+  
+
   ];
 
   useEffect(() => {
