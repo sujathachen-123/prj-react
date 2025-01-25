@@ -92,14 +92,13 @@ const PaymentPage = () => {
                 key={index}
                 type={placeholder === "CVV" ? "password" : "text"}
                 placeholder={placeholder}
-                name={
-                  placeholder === "Card Number"
-                    ? "cardNumber"
-                    : placeholder === "Cardholder Name"
-                    ? "cardholderName"
-                    : placeholder === "Expiry Date (MM/YY)"
-                    ? "expiryDate"
-                    : "cvv"
+                name={placeholder === "Card Number"
+                  ? "cardNumber"
+                  : placeholder === "Cardholder Name"
+                  ? "cardholderName"
+                  : placeholder === "Expiry Date (MM/YY)"
+                  ? "expiryDate"
+                  : "cvv"
                 }
                 className="w-full p-2 mb-4 border border-gray-300 rounded"
                 onChange={handleInputChange}

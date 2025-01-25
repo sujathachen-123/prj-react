@@ -2,9 +2,9 @@ import React, { useState } from "react";
 // import { FaArrowLeft } from "react-icons/fa"; // Importing a back arrow icon
 
 const VideoSection = () => {
-  const [selectedSection, setSelectedSection] = useState(null); // Track the current selected section
+  const [selectedCourse, setSelectedCourse] = useState(null); // Track the current selected course
 
-  const sections = {
+  const courses = {
     Python: [
       { title: "Python Basics", url: "https://drive.google.com/uc?export=download&id=FILE_ID1" },
       { title: "Advanced Python", url: "https://drive.google.com/uc?export=download&id=FILE_ID2" },
@@ -34,51 +34,52 @@ const VideoSection = () => {
     ],
   };
 
-  const handleSectionSelect = (section) => {
-    setSelectedSection(section); // Update the current section
+  const handleCourseSelect = (course) => {
+    setSelectedCourse(course); // Update the current course
   };
 
-  // const goBack = () => {
-  //   setSelectedSection(null); // Reset the selected section
-  // };
+  const goBack = () => {
+    setSelectedCourse(null); // Reset the selected course
+  };
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
-      {/* Go Back Button
-      {selectedSection && (
+      {/* Go Back Button */}
+      {selectedCourse && (
         <button
           className="flex items-center text-blue-600 mb-6"
           onClick={goBack}
         >
-          <FaArrowLeft className="mr-2" /> Go Back
+          {/* <FaArrowLeft className="mr-2" /> Go Back */}
+          Go Back
         </button>
-      )} */}
+      )}
 
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Learn with Us</h1>
 
-      {/* Section Buttons */}
-      {!selectedSection && (
+      {/* Course Selection */}
+      {!selectedCourse && (
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {Object.keys(sections).map((section) => (
+          {Object.keys(courses).map((course) => (
             <button
-              key={section}
+              key={course}
               className="px-6 py-2 rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-600"
-              onClick={() => handleSectionSelect(section)}
+              onClick={() => handleCourseSelect(course)}
             >
-              {section}
+              {course}
             </button>
           ))}
         </div>
       )}
 
       {/* Video List */}
-      {selectedSection && (
+      {selectedCourse && (
         <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            Videos in {selectedSection}
+            Videos in {selectedCourse}
           </h2>
           <ul className="space-y-4">
-            {sections[selectedSection].map((video, index) => (
+            {courses[selectedCourse].map((video, index) => (
               <li key={index}>
                 {/* Embed video in a smaller iframe */}
                 <div className="mb-4">
@@ -86,8 +87,8 @@ const VideoSection = () => {
                     src={video.url}
                     title={video.title}
                     width="100%" // Adjusted width
-                    height="100%" // Adjusted height
-                    // frameBorder="0"
+                    height="315px" // Set height to a fixed value for consistency
+                    frameBorder="0"
                     allowFullScreen
                     className="rounded-lg border"
                   ></iframe>
