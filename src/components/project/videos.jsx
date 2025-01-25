@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 const VideoSection = () => {
   const [selectedCourse, setSelectedCourse] = useState(null); // Track the current selected course
+  const [comments, setComments] = useState([]); // Track the comments for the course videos
+  const [newComment, setNewComment] = useState(""); // Track the new comment being typed
 
   const courses = {
     Python: [
@@ -78,8 +80,18 @@ const VideoSection = () => {
     ],
   };
 
+  // Handle course selection
   const handleCourseSelect = (course) => {
     setSelectedCourse(course); // Update the current course
+  };
+
+  // Handle new comment submission
+  const handleCommentSubmit = (e) => {
+    e.preventDefault(); // Prevent page reload on form submission
+    if (newComment.trim()) {
+      setComments([...comments, newComment]); // Add new comment to the list
+      setNewComment(""); // Clear the input field
+    }
   };
 
   return (
@@ -95,7 +107,7 @@ const VideoSection = () => {
             <button
               key={course}
               className="px-6 py-2 rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-600"
-              onClick={() => handleCourseSelect(course)}
+              onClick={() => handleCourseSelect(course)} // Select course on click
             >
               {course}
             </button>
@@ -112,22 +124,54 @@ const VideoSection = () => {
           <ul className="space-y-4">
             {courses[selectedCourse].map((video, index) => (
               <li key={index}>
-                {/* Embed video in a smaller iframe */}
+                {/* Embed video in iframe */}
                 <div className="mb-4">
                   <iframe
                     src={video.url}
-                    title={video.title}
-                    width="100%" // Adjusted width
-                    height="315px" // Set height to a fixed value for consistency
+                    title={video.title} // Title for accessibility
+                    width="100%" // Full width of container
+                    height="315px" // Fixed height for consistency
                     frameBorder="0"
                     allowFullScreen
                     className="rounded-lg border"
                   ></iframe>
                 </div>
+                {/* Video title */}
                 <p className="text-blue-600">{video.title}</p>
               </li>
             ))}
           </ul>
+
+          {/* Comment Section */}
+          <div className="mt-8">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">Comments</h3>
+
+            {/* Comment input form */}
+            <form onSubmit={handleCommentSubmit} className="mb-6">
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)} // Update comment as user types
+                placeholder="Share your thoughts..."
+                className="w-full p-4 rounded-lg border border-gray-300"
+                rows="4"
+              ></textarea>
+              <button
+                type="submit"
+                className="mt-2 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              >
+                Post Comment
+              </button>
+            </form>
+
+            {/* Display existing comments */}
+            <div className="space-y-4">
+              {comments.map((comment, index) => (
+                <div key={index} className="bg-gray-100 p-4 rounded-lg">
+                  <p>{comment}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>
