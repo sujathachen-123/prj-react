@@ -2,6 +2,8 @@ import React from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Authcontext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import pythonImg from "../images/pythonlogo.jpg";
 import jsImg from "../images/jslogo.webp";
 import htmlImg from "../images/html.jpg";
@@ -70,7 +72,7 @@ function BasicExample({ searchQuery }) {
     if (isAuthenticated) {
       navigate("/Form");
     } else {
-      alert("Please log in to access this course.");
+      toast.error("Please log in to access this course.");
     }
   };
 
@@ -110,6 +112,7 @@ function BasicExample({ searchQuery }) {
           </div>
         ))}
       </div>
+      <ToastContainer />
     </div>
   );
 }

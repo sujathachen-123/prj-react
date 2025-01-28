@@ -20,6 +20,12 @@ const PaymentPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // Handle input limits
+    if (name === "cardNumber" && value.length > 16) return;
+    if (name === "cvv" && value.length > 3) return;
+    if (name === "expiryDate" && value.length > 5) return;
+
     setFormDetails((prev) => ({ ...prev, [name]: value }));
     setError(""); // Clear error on input change
   };
@@ -29,6 +35,18 @@ const PaymentPage = () => {
       const { cardNumber, cardholderName, expiryDate, cvv } = formDetails;
       if (!cardNumber || !cardholderName || !expiryDate || !cvv) {
         setError("Please fill in all the required fields.");
+        return false;
+      }
+      if (!/^[0-9]{16}$/.test(cardNumber)) {
+        setError("Card number must be 16 digits.");
+        return false;
+      }
+      if (!/^(0[1-9]|1[0-2])\/[0-9]{2}$/.test(expiryDate)) {
+        setError("Expiry date must be in MM/YY format.");
+        return false;
+      }
+      if (!/^[0-9]{3}$/.test(cvv)) {
+        setError("CVV must be 3 digits.");
         return false;
       }
     } else if (paymentMethod === "upi" && !formDetails.upiApp) {
@@ -87,23 +105,38 @@ const PaymentPage = () => {
               Enter {paymentMethod === "credit" ? "Credit" : "Debit"} Card Details
             </h3>
 
-            {["Card Number", "Cardholder Name", "Expiry Date (MM/YY)", "CVV"].map((placeholder, index) => (
-              <input
-                key={index}
-                type={placeholder === "CVV" ? "password" : "text"}
-                placeholder={placeholder}
-                name={placeholder === "Card Number"
-                  ? "cardNumber"
-                  : placeholder === "Cardholder Name"
-                  ? "cardholderName"
-                  : placeholder === "Expiry Date (MM/YY)"
-                  ? "expiryDate"
-                  : "cvv"
-                }
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                onChange={handleInputChange}
-              />
-            ))}
+            <input
+              type="text"
+              placeholder="Card Number"
+              name="cardNumber"
+              value={formDetails.cardNumber}
+              onChange={handleInputChange}
+              className="w-full p-2 mb-4 border border-gray-300 rounded"
+            />
+            <input
+              type="text"
+              placeholder="Cardholder Name"
+              name="cardholderName"
+              value={formDetails.cardholderName}
+              onChange={handleInputChange}
+              className="w-full p-2 mb-4 border border-gray-300 rounded"
+            />
+            <input
+              type="text"
+              placeholder="Expiry Date (MM/YY)"
+              name="expiryDate"
+              value={formDetails.expiryDate}
+              onChange={handleInputChange}
+              className="w-full p-2 mb-4 border border-gray-300 rounded"
+            />
+            <input
+              type="password"
+              placeholder="CVV"
+              name="cvv"
+              value={formDetails.cvv}
+              onChange={handleInputChange}
+              className="w-full p-2 mb-4 border border-gray-300 rounded"
+            />
           </div>
         )}
 

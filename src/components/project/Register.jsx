@@ -9,6 +9,8 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import img1 from "../images/img-1.webp";
 
 // Firebase Configuration
@@ -50,16 +52,16 @@ const Register = () => {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        alert(`Welcome, ${user.displayName || "User"}! You are successfully logged in.`);
+        toast.success(`Welcome, ${user.displayName || "User"}! You are successfully logged in.`);
         logIn();
         navigate("/");
       } catch (error) {
         console.error("Login Error:", error.message);
-        alert("Login failed. Please check your credentials.");
+        toast.error("Login failed. Please check your credentials.");
       }
     } else {
       if (password !== confirmPassword) {
-        alert("Passwords do not match!");
+        toast.error("Passwords do not match!");
         return;
       }
       try {
@@ -69,19 +71,19 @@ const Register = () => {
         await updateProfile(user, { displayName: username });
         await sendEmailVerification(user);
 
-        alert(`Welcome, ${username}! Registration successful.`);
+        toast.success(`Welcome, ${username}! Registration successful.`);
         logIn();
         navigate("/");
       } catch (error) {
         console.error("Registration Error:", error.message);
-        alert("Registration failed. Please try again.");
+        toast.error("Registration failed. Please try again.");
       }
     }
   };
 
   const handleGuestLogin = () => {
     logIn();
-    alert("Welcome, Guest! You are successfully logged in.");
+    toast.success("Welcome, Guest! You are successfully logged in.");
     navigate("/");
   };
 
@@ -170,6 +172,7 @@ const Register = () => {
           Guest Login
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 };
