@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useRef } from "react";
+import Code from "../images/code.jpg"; 
 
 const VideoSection = () => {
   const [selectedCourse, setSelectedCourse] = useState(null); // Track the current selected course
   const [comments, setComments] = useState([]); // Track the comments for the course videos
   const [newComment, setNewComment] = useState(""); // Track the new comment being typed
+  const videoSectionRef = useRef(null); // Define useRef
 
   const courses = {
     Python: [
@@ -63,9 +65,13 @@ const VideoSection = () => {
     ],
   };
 
-  // Handle course selection
   const handleCourseSelect = (course) => {
     setSelectedCourse(course); // Update the current course
+    setTimeout(() => {
+      if (videoSectionRef.current) {
+        videoSectionRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   };
 
   // Handle new comment submission
@@ -76,64 +82,54 @@ const VideoSection = () => {
       setNewComment(""); // Clear the input field
     }
   };
-
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Learn with Us
-      </h1>
-
-      {/* Course Selection */}
-      {!selectedCourse && (
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {Object.keys(courses).map((course) => (
-            <button
-              key={course}
-              className="px-6 py-2 rounded-lg shadow-md text-white bg-blue-500 hover:bg-blue-600"
-              onClick={() => handleCourseSelect(course)} // Select course on click
-            >
-              {course}
-            </button>
-          ))}
+    <div className="relative min-h-screen">
+      <div className="relative w-full h-screen">
+        <img src={Code} alt="Learning Banner" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center">
+          <h1 className="text-4xl font-bold mb-4">Learn with Us</h1>
+          {!selectedCourse && (
+            <div className="flex flex-wrap justify-center gap-4">
+              {Object.keys(courses).map((course) => (
+                <button
+                  key={course}
+                  className="px-6 py-2 rounded-lg shadow-md bg-blue-500 hover:bg-blue-600"
+                  onClick={() => handleCourseSelect(course)}
+                >
+                  {course}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
-      )}
-
-      {/* Video List */}
+      </div>
       {selectedCourse && (
-        <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-            Videos in {selectedCourse}
-          </h2>
+        <div ref={videoSectionRef} className="p-6" mt-6>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">Videos in {selectedCourse}</h2>
           <ul className="space-y-4">
             {courses[selectedCourse].map((video, index) => (
               <li key={index}>
-                {/* Embed video in iframe */}
                 <div className="mb-4">
                   <iframe
                     src={video.url}
-                    title={video.title} // Title for accessibility
-                    width="100%" // Full width of container
-                    height="315px" // Fixed height for consistency
+                    title={video.title}
+                    width="100%"
+                    height="315px"
                     frameBorder="0"
                     allowFullScreen
                     className="rounded-lg border"
                   ></iframe>
                 </div>
-                {/* Video title */}
                 <p className="text-blue-600">{video.title}</p>
               </li>
             ))}
           </ul>
-
-          {/* Comment Section */}
           <div className="mt-8">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Comments</h3>
-
-            {/* Comment input form */}
             <form onSubmit={handleCommentSubmit} className="mb-6">
               <textarea
                 value={newComment}
-                onChange={(e) => setNewComment(e.target.value)} // Update comment as user types
+                onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Share your thoughts..."
                 className="w-full p-4 rounded-lg border border-gray-300"
                 rows="4"
@@ -145,8 +141,6 @@ const VideoSection = () => {
                 Post Comment
               </button>
             </form>
-
-            {/* Display existing comments */}
             <div className="space-y-4">
               {comments.map((comment, index) => (
                 <div key={index} className="bg-gray-100 p-4 rounded-lg">

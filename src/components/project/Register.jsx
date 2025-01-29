@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import img1 from "../images/img-1.webp";
@@ -25,8 +26,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
-const auth = getAuth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app); // Initialize Firestore
 
 const Register = () => {
   const navigate = useNavigate();
@@ -69,8 +71,16 @@ const Register = () => {
         const user = userCredential.user;
 
         await updateProfile(user, { displayName: username });
-        await sendEmailVerification(user);
+        // await sendEmailVerification(user);
+         // Store user data in Firestore
+        await setDoc(doc(db, "usersRegistration", user.uid), {
+          uid: user.uid,
+          username: username,
+          email: email,
+          createdAt: new Date(),
+        });
 
+        await sendEmailVerification(user);
         toast.success(`Welcome, ${username}! Registration successful.`);
         logIn();
         navigate("/");
@@ -80,6 +90,16 @@ const Register = () => {
       }
     }
   };
+
+  //       toast.success(`Welcome, ${username}! Registration successful.`);
+  //       logIn();
+  //       navigate("/");
+  //     } catch (error) {
+  //       console.error("Registration Error:", error.message);
+  //       toast.error("Registration failed. Please try again.");
+  //     }
+  //   }
+  // };
 
   const handleGuestLogin = () => {
     logIn();

@@ -1,3 +1,5 @@
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -15,6 +17,8 @@ const PaymentPage = () => {
     upiApp: "",
   });
   const [error, setError] = useState("");
+  const db = getFirestore();
+  const auth = getAuth();
 
   const coursePrice = formData?.price || 0;
 
@@ -56,8 +60,32 @@ const PaymentPage = () => {
     return true;
   };
 
-  const handlePayment = () => {
+  const handlePayment =async () => {
     if (!validateInputs()) return;
+
+    const user = auth.currentUser;
+    if (!user) {
+      setError("You must be logged in to complete the payment.");
+      return;
+    }
+
+    const paymentData = {
+      userId: user.uid,
+      courseId: formData?.courseId || "unknown",
+      courseName: formData?.courseName || "Unknown Course",
+      amount: coursePrice,
+      paymentMethod,
+      timestamp: new Date(),
+      ...(paymentMethod === "upi"
+        ? { upiApp: formDetails.upiApp }
+        : {
+            cardNumber: formDetails.cardNumber.replace(/\d(?=\d{4})/g, "*"), // Masking card number
+            cardholderName: formDetails.cardholderName,
+            expiryDate: formDetails.expiryDate,
+          }),
+    };
+try{
+  await addDoc(collection(db,"coursePayments"),paymentData);
 
     // SweetAlert for payment success
     Swal.fire({
@@ -69,7 +97,10 @@ const PaymentPage = () => {
     }).then(() => {
       navigate("/Learn your favourite course");
     });
-  };
+  }catch(error){
+    console.error("Error saving payment:", error);
+    setError("Payment failed. Please try again.");
+  }};
 
   return (
     <div className="max-w-lg mx-auto my-10 p-6 border border-gray-200 rounded-lg shadow-lg bg-white font-sans">
